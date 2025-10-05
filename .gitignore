@@ -1,0 +1,4 @@
+data/birthdays.csv
+
+output/*
+!output/files
