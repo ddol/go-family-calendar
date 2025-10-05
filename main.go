@@ -35,9 +35,11 @@ func main() {
 
 	if *holidays != "" {
 		for _, cc := range strings.Split(*holidays, ",") {
-			path := fmt.Sprintf("data/holidays/%s.csv", strings.ToUpper(strings.TrimSpace(cc)))
+			// Holiday files are now named with the year prefix: data/holidays/YYYY-CC.csv
+			path := fmt.Sprintf("data/holidays/%d-%s.csv", *year, strings.ToUpper(strings.TrimSpace(cc)))
 			evs, err := events.LoadCSV(path)
 			if err != nil {
+				// Fail gracefully: log a warning and continue compilation with other events
 				log.Printf("Warning: could not load holiday file %s: %v", path, err)
 				continue
 			}
